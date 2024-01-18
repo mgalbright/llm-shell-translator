@@ -35,7 +35,8 @@ Do not output any response besides json that conforms to the template provided.
 BASH_EXPLAIN_PROMPT = """You are an AI that is given a complicated linux bash command, and you explain what it does
 in English.  If it is not a bash command, respond 'sorry, idk'.  
 Do not invent answers. Only return answers that you are very confident are correct.  If you are unsure what a command
-does, respond 'sorry, idk'.
+does, respond 'sorry, idk'.  Do not provide any answer that is not either (1) an exaplanation of a shell command or
+(2) 'sorry, idk'.
 """
 
 def query_openai_prompt(client, system_prompt, user_prompt):
