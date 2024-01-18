@@ -19,7 +19,7 @@ You will output the command and metadata in a json structure like this:
 You will replace <COMMAND> with the valid, working bash shell command that solves the request.  
 
 If the command is possibly risky to the linux system, such as potentially causing a loss 
-of files or user accounts, or otherwise harming the linux system, replace <RISK> with True, otherwise replace <RISKY> with False.
+of files or user accounts, or otherwise harming the linux system, replace <RISK> with True, otherwise replace <RISK> with False.
 
 Only generate bash commands that you are highly-confident will run correctly. 
 Do not invent commands that do not exist.  If there is no way to solve the question 
