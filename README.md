@@ -17,6 +17,8 @@ It's for experimentation/testing only!
 
 For real world uses (beyond experimentation), use professional tools.
 
+For a more powerful command line llm tool, see (e.g.): [llm](https://github.com/simonw/llm)
+
 ## Use case
 Example: suppose you don't remember the shell command to search files and sort 
 them in reverse order.  Just use the new terminal command **lt** (short for 
