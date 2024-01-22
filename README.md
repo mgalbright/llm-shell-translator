@@ -48,7 +48,7 @@ Instructions for unix/mac:
 Open your ~/.bash_profile (or .zshrc) file and add the following:
 
 ```shell
-export OPEN_AI_KEY=XXXX
+export OPENAI_API_KEY=XXXX
 
 function lt() {
   python ~/PATH-TO-REPO/llm-assistant.py -t -p "$1" 

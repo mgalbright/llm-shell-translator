@@ -5,7 +5,7 @@ from openai import OpenAI
 import json
 import argparse
 
-#Expects api key is available via environment variable OPEN_AI_KEY
+#Expects api key is available via environment variable OPENAI_API_KEY
 
 # MODEL_NAME = "gpt-4"
 MODEL_NAME = "gpt-3.5-turbo"
