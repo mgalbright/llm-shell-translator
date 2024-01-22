@@ -1,19 +1,16 @@
 # LLM shell translator
 
-This is a simple script to supercharge your productivity in the linux terminal, 
-by helping you read and write shell commands in plain English.  In essence,
-this gives you a unviersal translator the linux shell. This is
+This is a simple script to enhance your productivity in the linux terminal, 
+by enabling you to read and write bash commands in plain English.  In essence,
+this gives you a unviersal translator to the linux terminal. This is
 powered by the OpenAI API.
 
-Caution: This is meant as a fun experiment ONLY, to test capabilities of the 
-OpenAI API.  This is  not a production-ready tool. It is similar to, but less 
-polished than the GitHub Copilot in CLI. It's also not free, as each invocoation 
+Caution: This is meant as a fun scripting exercise ONLY. This is  not a production-ready tool. 
+It is similar to, but less polished than the GitHub Copilot in CLI. It's also not free, as each invocation 
 requires API calls that you pay for. 
 
-
 WARNING: This script has no safety guarantees. It's possible the script could 
-output harmful or incorrect linux commands.  Hence, use it with great caution!  
-It's for experimentation/testing only!
+output harmful or incorrect linux commands.  Hence, use it with caution! 
 
 For real world uses (beyond experimentation), use professional tools.
 
@@ -26,7 +23,6 @@ them in reverse order.  Just use the new terminal command **lt** (short for
 translate your question (top line) to a working linux command (bottom line):
 ![img](imgs/search.png)  
 If you're satisfied with the command, just copy and run it.
-
 
 On the other hand, if you see a linux command you don't understand, just use
 the command **le** (for "llm explain") followed by the command in quotes. 
