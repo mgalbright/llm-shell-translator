@@ -68,3 +68,12 @@ Then save and open a new bash shell, or update your existing shell:
 source ~/.bash_profile
 ```
 
+Note: if you've installed openai in a specific conda environment, you can run the script with that environment by activating and deactivating the environment in the bash functions, like this:
+```shell
+function lt() {
+  conda activate openaienv
+  python ~/PATH-TO-REPO/llm-assistant.py -t -p "$1"
+  conda deactivate
+}
+```
+
