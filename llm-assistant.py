@@ -5,7 +5,7 @@ from openai import OpenAI
 import json
 import argparse
 
-#Expects api key is available via environment variable OPENAI_KEY
+#Expects api key is available via environment variable OPEN_AI_KEY
 
 # MODEL_NAME = "gpt-4"
 MODEL_NAME = "gpt-3.5-turbo"
@@ -96,7 +96,7 @@ if __name__ == '__main__':
 
     #--------------
 
-    client = OpenAI( api_key=os.environ.get("OPENAI_KEY"))
+    client = OpenAI( api_key=os.environ.get("OPENAI_API_KEY"))
 
     if args.explain:
       chat_completion = explain_bash(client, args.prompt)
