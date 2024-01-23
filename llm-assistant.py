@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+#version 2 of code. Uses function feature of chat.completions api to force
+#model output to match specified json structure, for greater consistency.
+
 import os
 from openai import OpenAI
 import json
