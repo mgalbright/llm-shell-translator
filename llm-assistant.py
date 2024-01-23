@@ -7,10 +7,9 @@ import argparse
 
 #Expects api key is available via environment variable OPENAI_API_KEY
 
-# MODEL_NAME = "gpt-4"
-MODEL_NAME = "gpt-3.5-turbo"
-
-MAX_TOKENS=256
+# DEFAULT_MODEL_NAME = "gpt-4"
+DEFAULT_MODEL_NAME = "gpt-3.5-turbo"
+DEFAULT_MAX_TOKENS=256
 
 BASH_EXPLAIN_PROMPT = """You are an AI that is given a linux bash command, and 
 you explain what it does in English.  If it is not a bash command, respond 
@@ -77,18 +76,19 @@ FUNCTION_SPECIFICATIONS = [
 
 #-------------------------------------------------------------------------------
 
-def query_openai_prompt(client, system_prompt, user_prompt):
+def query_openai_prompt(client, system_prompt, user_prompt, model_name, max_tokens):
   """Ask chatgpt questions with text prompt from user"""
   chat_completion = client.chat.completions.create(
     messages=[
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": user_prompt},
     ],
-    model=MODEL_NAME,
+    model=model_name,
+    max_tokens=max_tokens
   )
   return chat_completion
 
-def query_openai_function_api(client, system_prompt, user_prompt, function_specifications):
+def query_openai_function_api(client, system_prompt, user_prompt, function_specifications,model_name, max_tokens):
   """Ask chatgpt a prompt whose response must take the form of valid arguments 
   that can be passed to a function. Uses the function api.
   
@@ -101,7 +101,9 @@ def query_openai_function_api(client, system_prompt, user_prompt, function_speci
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": user_prompt},
     ],
-    model=MODEL_NAME,
+    model=model_name,
+    max_tokens=max_tokens,
+
     functions=function_specifications,
     
     #force chatgpt to create a response conforming to the signature of this function
@@ -110,11 +112,11 @@ def query_openai_function_api(client, system_prompt, user_prompt, function_speci
   )
   return chat_completion
 
-def translate_to_bash(client, user_question):
-  return query_openai_function_api(client, BASH_TRANSLATE_PROMPT, user_question, FUNCTION_SPECIFICATIONS)
+def translate_to_bash(client, user_question, model_name, max_tokens):
+  return query_openai_function_api(client, BASH_TRANSLATE_PROMPT, user_question, FUNCTION_SPECIFICATIONS, model_name, max_tokens)
 
-def explain_bash(client, user_question):
-  return query_openai_prompt(client, BASH_EXPLAIN_PROMPT, user_question)
+def explain_bash(client, user_question, model_name, max_tokens):
+  return query_openai_prompt(client, BASH_EXPLAIN_PROMPT, user_question, model_name, max_tokens)
 
 #-------------
 
@@ -151,9 +153,14 @@ def print_bash_command(command: str, confident: bool, risky: bool):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OpenAI shell assistant.')
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('-t', '--translate',action='store_true', help="translate sentence to bash command")
+    group.add_argument('-t', '--translate', action='store_true', help="translate sentence to bash command")
     group.add_argument('-e', '--explain', action='store_true', help="explain a bash command")
-    parser.add_argument('-p', '--prompt', help = "prompt from user",required=True)
+    parser.add_argument('-p', '--prompt', type=str, help = "prompt from user",required=True)
+
+    parser.add_argument('-m', '--model_name', type=str, default=DEFAULT_MODEL_NAME,
+      help = "name of openai model to use, like 'gpt-3.5-turbo' or 'gpt-4'.")
+    parser.add_argument('-n', '--max_tokens', type=int, default=DEFAULT_MAX_TOKENS, 
+      help = "max tokens", )
 
     args = parser.parse_args()
 
@@ -162,11 +169,11 @@ if __name__ == '__main__':
     client = OpenAI( api_key=os.environ.get("OPENAI_API_KEY"))
 
     if args.explain:
-      chat_completion = explain_bash(client, args.prompt)
+      chat_completion = explain_bash(client, args.prompt, args.model_name, args.max_tokens)
       print(chat_completion.choices[0].message.content)
 
     elif args.translate:
-      chat_completion = translate_to_bash(client, args.prompt)
+      chat_completion = translate_to_bash(client, args.prompt, args.model_name, args.max_tokens)
       json_response = clean_function_json(chat_completion.choices[0].message.function_call.arguments)
 
       print_bash_command(**json_response)
