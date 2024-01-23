@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+#version 1: in this version, I used the openai chat.completions api
+#with pure prompting to encourage the ai to format the response into json.
+#in later versions, I use the function feature in chat.completions to
+#more consistently force the ai to output json with the prescribed structure.
+
 import os
 from openai import OpenAI
 import json
