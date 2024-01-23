@@ -73,3 +73,14 @@ function lt() {
 }
 ```
 
+For power users: if you want to be able to run your command by pressing enter (instead of having to copy and paste it), here's a bash function that enables that. Be careful that you don't run risky commands without understanding them:
+```shell
+function lt2(){
+  file=$(mktemp)
+  python ~/PATH-TO-REPO/llm-assistant.py -t -p "$1" | tee "$file"
+  read -p "Press enter to run command, ctrl+c to abort"
+  bash "$file"
+  rm "$file"
+}
+```
+
