@@ -2,7 +2,7 @@
 
 This is a simple script to enhance your productivity in the linux terminal, 
 by enabling you to read and write bash commands in plain English.  In essence,
-this gives you a unviersal translator to the linux terminal. This is
+this gives you a universal translator to the linux terminal. This is
 powered by the OpenAI API.
 
 Caution: This is meant as a fun scripting exercise ONLY. This is  not a production-ready tool. 
